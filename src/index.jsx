@@ -1,13 +1,13 @@
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
-import Game from './components/Game';
+import App from './App';
 import './Style.css';
 
 function Hello() {
 
   return (
     <BrowserRouter>
-      <Game />
+      <App />
     </BrowserRouter>
   )
 }
