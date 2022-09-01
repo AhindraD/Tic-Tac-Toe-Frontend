@@ -13,12 +13,21 @@ export default function GreetScreen() {
         let randomK = Math.random().toString(36).substring(2, 13);
         //console.log(randomK);
         setRandomKey(() => randomK);
+        socket.emit("create-room", { roomID: randomK, owner: socket.id });
         goTo(`/${randomK}`);
     }
 
     function joinRoom() {
-
-        goTo(`/${joinID}`);
+        socket.emit("join-room", { roomID: joinID, joiner: socket.id });
+        socket.on("join-access", (data) => {
+            if (data.valid) {
+                goTo(`/${joinID}`);
+                console.log(data.resp);
+            }
+            else {
+                console.log(data.resp);
+            }
+        })
     }
 
     return (

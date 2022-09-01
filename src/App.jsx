@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 
 
 export default function App() {
+    //console.log(socket);
     useEffect(() => {
         socket.on("ID", (data) => {
             console.log(data);
