@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { SocketContext } from '../contexts/SocketContext';
 
 export default function GreetScreen() {
-    const socket = useContext(SocketContext);
+    const { socket, room, setRoom } = useContext(SocketContext);
     const goTo = useNavigate();
     let [randomKey, setRandomKey] = useState(null);
     let [joinID, setJoinID] = useState(null);
@@ -14,6 +14,7 @@ export default function GreetScreen() {
         //console.log(randomK);
         setRandomKey(() => randomK);
         socket.emit("create-room", { roomID: randomK, owner: socket.id });
+        setRoom(() => randomK);
         goTo(`/${randomK}`);
     }
 
@@ -21,10 +22,12 @@ export default function GreetScreen() {
         socket.emit("join-room", { roomID: joinID, joiner: socket.id });
         socket.on("join-access", (data) => {
             if (data.valid) {
+                setRoom(() => joinID)
                 goTo(`/${joinID}`);
                 console.log(data.resp);
             }
             else {
+                alert(data.resp);
                 console.log(data.resp);
             }
         })

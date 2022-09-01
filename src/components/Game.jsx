@@ -5,7 +5,7 @@ import History from "./History";
 import { SocketContext } from '../contexts/SocketContext';
 
 function Game(props) {
-    const socket = useContext(SocketContext);
+    const {socket} = useContext(SocketContext);
     let startingBoard = new Array(3).fill(0).map((el) => new Array(3).fill(' '));
 
     let [currBoard, setCurrBoard] = useState(startingBoard);
