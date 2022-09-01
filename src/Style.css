@@ -1,0 +1,122 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: hsl(217, 54%, 11%);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: azure;
+}
+
+.container {
+    width: 500px;
+    min-height: 700px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 3vh auto;
+}
+
+h1 {
+    -webkit-text-stroke: 2px #ff00c39c;
+    font-size: 50px;
+    margin-bottom: 10px;
+    align-self: center;
+}
+
+h2 {
+    font-size: 30px;
+    -webkit-text-stroke: 1px #00bbff;
+    margin-bottom: 30px;
+    align-self: center;
+}
+
+.status {
+    margin-top: 30px;
+    font-size: 30px;
+}
+
+.total-board {
+    width: 400px;
+    min-height: 500px;
+    display: flex;
+    flex-direction: column;
+}
+
+.board {
+    align-self: center;
+    width: 350px;
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background-color: hsl(216, 50%, 16%);
+    padding: 15px;
+    box-shadow: 0px 0px 55px 15px #ff00c3a6;
+    border-radius: 5px;
+}
+
+.rows {
+    width: 100%;
+    height: 31%;
+    display: flex;
+    justify-content: space-between;
+    background-color: hsl(216, 50%, 16%);
+}
+
+.square {
+    width: 31%;
+    height: 100%;
+    font-size: 70px;
+    border-radius: 5px;
+    font-weight: bolder;
+    color: rgb(255, 0, 153);
+    -webkit-text-stroke: 2px #00bbff;
+    border: 2px solid #ff00c39c;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.square:active {
+    background-color: rgb(206, 227, 245);
+}
+
+.history {
+    width: 400px;
+    min-height: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.history-button {
+    width: 80px;
+    height: 40px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 2px solid #00bbff;
+    background-color: white;
+    cursor: pointer;
+    font-weight: bolder;
+    transition: background 600ms ease-in-out, color 300ms ease-in-out;
+}
+
+.history-button:hover {
+    background-color: #00bbff;
+    color: white;
+}
+
+
+@media screen and (max-width:400) {
+
+    .container,
+    .total-board,
+    .history {
+        width: 360px;
+    }
+}
