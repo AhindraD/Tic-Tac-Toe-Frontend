@@ -2,6 +2,7 @@ import Board from "./Board";
 import { useState } from "react";
 import Status from "./Status";
 import History from "./History";
+import { socket, SocketContext } from '../contexts/SocketContext';
 
 function Game(props) {
     let startingBoard = new Array(3).fill(0).map((el) => new Array(3).fill(' '));
@@ -42,17 +43,19 @@ function Game(props) {
     }
 
     return (
-        <div className="container">
-            <main className="total-board ">
-                <h1>Tic-Tac-Toe</h1>
-                <h2>Next Player: {ifXturn ? 'X' : 'O'}</h2>
-                <Board currBoard={currBoard} handleClick={handleClick} />
-                <h2 className="status">{status}</h2>
-            </main>
-            <footer className="history">
-                {history.map((elem, ind) => <History index={ind} getBack={getBack} />)}
-            </footer>
-        </div>
+        <SocketContext.Provider value={socket}>
+            <div className="container">
+                <main className="total-board ">
+                    <h1>Tic-Tac-Toe</h1>
+                    <h2>Next Player: {ifXturn ? 'X' : 'O'}</h2>
+                    <Board currBoard={currBoard} handleClick={handleClick} />
+                    <h2 className="status">{status}</h2>
+                </main>
+                <footer className="history">
+                    {history.map((elem, ind) => <History index={ind} getBack={getBack} />)}
+                </footer>
+            </div>
+        </SocketContext.Provider>
     )
 }
 
