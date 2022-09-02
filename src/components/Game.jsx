@@ -1,5 +1,5 @@
 import Board from "./Board";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import Status from "./Status";
 import History from "./History";
 import { SocketContext } from '../contexts/SocketContext';
@@ -15,6 +15,14 @@ function Game(props) {
     //let [history, setHistory] = useState([]);
     //function result
     //let historyIndex = 0;
+
+    useEffect(() => {
+        socket.on("oponent", (data) => {
+            setIfJoined(() => true);
+            console.log(data);
+        })
+    }, [])
+
 
     let handleClick = (row, col) => {
         //console.log([row, col]);
@@ -51,7 +59,7 @@ function Game(props) {
         <div className="container">
             <main className="total-board ">
                 <h1>Tic-Tac-Toe</h1>
-                <h2>{ifJoined ? `Waitinf for player` : `Next Player: ${ifXturn ? 'X' : 'O'}`}</h2>
+                <h2>{ifJoined ? `Next Player: ${ifXturn ? 'X' : 'O'}` : `Waiting for opponent`}</h2>
                 <Board currBoard={currBoard} handleClick={handleClick} />
                 <h2 className="status">{status}</h2>
             </main>
