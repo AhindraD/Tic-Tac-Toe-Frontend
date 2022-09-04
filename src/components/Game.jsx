@@ -1,11 +1,11 @@
 import Board from "./Board";
 import { useState, useContext, useEffect } from "react";
 import Status from "./Status";
-import History from "./History";
+//import History from "./History";
 import { SocketContext } from '../contexts/SocketContext';
 
 function Game(props) {
-    const { socket } = useContext(SocketContext);
+    const { socket, ifX, setIfX, room } = useContext(SocketContext);
     let startingBoard = new Array(3).fill(0).map((el) => new Array(3).fill(' '));
 
     let [currBoard, setCurrBoard] = useState(startingBoard);
@@ -20,6 +20,12 @@ function Game(props) {
         socket.on("oponent", (data) => {
             setIfJoined(() => true);
             console.log(data);
+        });
+
+        socket.on("new-moves", (data) => {
+            setCurrBoard(JSON.parse(data.arrCopy));
+            setIfXturn(!data.ifXturn);
+            setStatus(data.currStatus);
         })
     }, [])
 
@@ -33,12 +39,22 @@ function Game(props) {
             //setHistory(newHistory);
             //historyIndex++;
 
+            if ((ifXturn && ifX) || (!ifXturn && !ifX)) {
+                arrCopy[row][col] = ifXturn ? 'X' : 'O';
+                //console.log(arrCopy);
+                //setCurrBoard(arrCopy);
+                //setIfXturn(!ifXturn);
+                let currStatus = Status(arrCopy);
+                //setStatus(currStatus);
 
-            arrCopy[row][col] = ifXturn ? 'X' : 'O';
-            //console.log(arrCopy);
-            setCurrBoard(arrCopy);
-            setIfXturn(!ifXturn);
-            setStatus(Status(arrCopy));
+                let movesObj = {
+                    arrCopy: JSON.stringify(arrCopy),
+                    ifXturn,
+                    currStatus,
+                    room
+                }
+                socket.emit("moves", movesObj);
+            }
         }
     };
 
@@ -66,6 +82,9 @@ function Game(props) {
             {/* <footer className="history">
                 {history.map((elem, ind) => <History index={ind} getBack={getBack} />)}
             </footer> */}
+            <section className="player">
+                <p>You Are: <span>{ifX ? "X" : "O"}</span></p>
+            </section>
         </div>
     )
 }

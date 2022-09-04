@@ -10,13 +10,14 @@ import { useState } from 'react';
 export default function App() {
     //console.log(socket);
     let [room, setRoom] = useState(null);
+    let [ifX, setIfX] = useState(false);
     useEffect(() => {
         socket.on("ID", (data) => {
             console.log(data);
         })
     }, [])
     return (
-        <SocketContext.Provider value={{socket, room, setRoom}}>
+        <SocketContext.Provider value={{ socket, room, setRoom, ifX, setIfX }}>
             <Routes>
                 <Route path='/' element={<GreetScreen />} />
                 <Route path='/:roomID' element={<Game />} />
