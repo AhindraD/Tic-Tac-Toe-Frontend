@@ -19,7 +19,7 @@ function Game(props) {
     useEffect(() => {
         socket.on("oponent", (data) => {
             setIfJoined(() => true);
-            console.log(data);
+            //console.log(data);
         });
 
         socket.on("new-moves", (data) => {
@@ -58,6 +58,17 @@ function Game(props) {
         }
     };
 
+
+    function copyRoomNo(txt) {
+        navigator.clipboard
+            .writeText(txt)
+            .then(() => {
+                alert("successfully copied!");
+            })
+            .catch(() => {
+                alert("something went wrong!");
+            });
+    }
     /*
     let getBack = (index) => {
         let tempArr = JSON.parse(JSON.stringify(history[index][0]));
@@ -85,6 +96,9 @@ function Game(props) {
             <section className="player">
                 <p>You Are: <span>{ifX ? "X" : "O"}</span></p>
             </section>
+
+            <input readOnly={true} className="room-no" value={room} onClick={(e) => { copyRoomNo(e.target.value) }}>
+            </input>
         </div>
     )
 }

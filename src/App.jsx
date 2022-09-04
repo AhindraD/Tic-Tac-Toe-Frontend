@@ -13,7 +13,7 @@ export default function App() {
     let [ifX, setIfX] = useState(false);
     useEffect(() => {
         socket.on("ID", (data) => {
-            console.log(data);
+            //console.log(data);
         })
     }, [])
     return (
