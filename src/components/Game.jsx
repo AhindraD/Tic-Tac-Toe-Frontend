@@ -42,10 +42,10 @@ function Game(props) {
             if ((ifXturn && ifX) || (!ifXturn && !ifX)) {
                 arrCopy[row][col] = ifXturn ? 'X' : 'O';
                 //console.log(arrCopy);
-                //setCurrBoard(arrCopy);
-                //setIfXturn(!ifXturn);
+                setCurrBoard(arrCopy);
+                setIfXturn(!ifXturn);
                 let currStatus = Status(arrCopy);
-                //setStatus(currStatus);
+                setStatus(currStatus);
 
                 let movesObj = {
                     arrCopy: JSON.stringify(arrCopy),
